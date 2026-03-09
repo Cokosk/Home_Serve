@@ -6,24 +6,25 @@
 
 勤家家政服务平台是一个面向用户和服务者的双向预约抢单系统。用户可以浏览服务、预约下单；服务者可以接单抢单、管理订单。系统重点突出 Redis 在高并发场景下的应用：缓存热点数据、分布式锁控制抢单、接口限流。
 
-**在线演示：**[ http://101.200.180.182](http://101.200.180.182/)
+**在线演示：** http://101.200.180.182
 
 **技术栈：** Spring Boot 2.7 + Redis + MySQL 8.0 + Vue3 + Element Plus
 
 ## 功能特性
 
-### 用户端（规划中）
+### 用户端 ✅ 已上线
 - 🏠 浏览家政服务分类
 - 📅 预约服务、选择时间
-- 💰 模拟支付流程
-- ⭐ 服务评价
+- 📋 订单管理与查询
+- 👤 个人中心
 
-### 服务者端（规划中）
+### 服务者端 ✅ 已上线
 - 📋 查看抢单池
 - ⚡ 高并发抢单（Redis 分布式锁）
 - 📊 订单管理与收入统计
+- 💰 收入统计与评分展示
 
-### 管理后台（已上线）
+### 管理后台 ✅ 已上线
 - 📈 数据概览仪表盘
 - 👥 用户/服务者管理
 - 🗂️ 服务分类与项目管理
@@ -59,19 +60,34 @@
 ## 项目结构
 
 ```
-qin-jia/
-├── home-serve/              # 项目主目录
-│   ├── backend/             # 后端服务
-│   │   ├── src/main/java/   # Java 源码
-│   │   ├── src/test/java/   # 测试用例
-│   │   └── pom.xml          # Maven 配置
-│   ├── front-admin/         # 管理后台前端
-│   │   ├── src/             # Vue3 源码
-│   │   └── package.json     # npm 配置
-│   ├── sql/                 # 数据库脚本
-│   ├── nginx/               # Nginx 配置
-│   └── docker-compose.yml   # Docker 编排
-├── skills/                  # OpenClaw Skills
+Qin_Jia-HomeService/
+├── home-serve/                # 项目主目录
+│   ├── backend/               # 后端服务
+│   │   ├── src/main/java/     # Java 源码
+│   │   ├── src/test/java/     # 测试用例
+│   │   └── pom.xml            # Maven 配置
+│   ├── front-admin/           # 管理后台前端 ✅
+│   │   ├── src/               # Vue3 源码
+│   │   └── package.json       # npm 配置
+│   ├── front-user/            # 用户端前端 ✅
+│   │   ├── src/               # Vue3 源码
+│   │   │   ├── views/         # 页面组件
+│   │   │   ├── api/           # API 封装
+│   │   │   ├── router/        # 路由配置
+│   │   │   └── stores/        # Pinia 状态
+│   │   └── package.json
+│   ├── front-worker/          # 服务者端前端 ✅
+│   │   ├── src/               # Vue3 源码
+│   │   │   ├── views/         # 页面组件
+│   │   │   ├── api/           # API 封装
+│   │   │   ├── router/        # 路由配置
+│   │   │   └── stores/        # Pinia 状态
+│   │   └── package.json
+│   ├── docs/                  # 开发文档
+│   ├── sql/                   # 数据库脚本
+│   ├── nginx/                 # Nginx 配置
+│   └── docker-compose.yml     # Docker 编排
+├── skills/                    # OpenClaw Skills
 └── README.md
 ```
 
@@ -99,10 +115,10 @@ mysql -u root -p < sql/init.sql
 # 3. 启动后端
 mvn spring-boot:run
 
-# 4. 启动前端
-cd front-admin
-npm install
-npm run dev
+# 4. 启动前端（选择一个）
+cd front-admin && npm run dev   # 管理后台
+cd front-user && npm run dev    # 用户端
+cd front-worker && npm run dev  # 服务者端
 ```
 
 ### Docker 部署
@@ -140,6 +156,8 @@ docker compose up -d
 | `/api/order/grab-pool` | GET | 抢单池 |
 | `/api/order/list` | GET | 订单列表 |
 | `/api/order/cancel` | POST | 取消订单 |
+| `/api/order/start` | POST | 开始服务 |
+| `/api/order/finish` | POST | 完成服务 |
 
 ## 贡献者
 
@@ -156,6 +174,7 @@ AI 助手（麻辣小龙虾）协助完成：
 - 🔧 环境配置与部署文档
 - 🧪 单元测试与集成测试
 - 📝 项目文档维护
+- 🎨 用户端/服务者端前端开发
 
 ## 开发进度
 
@@ -164,8 +183,10 @@ AI 助手（麻辣小龙虾）协助完成：
 - [x] Redis 缓存与分布式锁
 - [x] 单元测试用例
 - [x] 阿里云部署
-- [ ] 用户端前端
-- [ ] 服务者端前端
+- [x] 用户端前端
+- [x] 服务者端前端
+- [ ] 支付模块（模拟支付）
+- [ ] 评价模块（双向评价）
 - [ ] 性能优化与压测
 
 ## 部署状态
@@ -174,6 +195,20 @@ AI 助手（麻辣小龙虾）协助完成：
 |------|------|------|
 | 阿里云 | ✅ 已部署 | http://101.200.180.182 |
 | GitHub | ✅ 已同步 | https://github.com/Cokosk/Qin_Jia-HomeService |
+
+## 更新日志
+
+### v1.1.0 (2026-03-09)
+- ✅ 用户端前端开发完成（首页、服务列表、预约下单、订单管理、用户中心）
+- ✅ 服务者端前端开发完成（抢单池、抢单功能、订单管理、收入统计）
+- ✅ 飞书通道配置完成
+
+### v1.0.0 (2026-03-06)
+- ✅ 完成后端核心功能开发
+- ✅ 完成 Vue3 + Element Plus 管理后台
+- ✅ Redis 缓存、分布式锁、限流功能实现
+- ✅ 抢单核心流程实现
+- ✅ 阿里云部署成功
 
 ## 许可证
 
