@@ -9,6 +9,12 @@ const routes = [
     meta: { title: '首页' }
   },
   {
+    path: '/search',
+    name: 'Search',
+    component: () => import('../views/Search.vue'),
+    meta: { title: '搜索' }
+  },
+  {
     path: '/services',
     name: 'ServiceList',
     component: () => import('../views/ServiceList.vue'),
