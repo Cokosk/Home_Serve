@@ -58,15 +58,45 @@
         </div>
       </div>
     </div>
+
+    <!-- 底部导航 - 使用 Vant Tabbar -->
+    <van-tabbar v-model="activeTab" route active-color="#667eea">
+      <van-tabbar-item to="/">
+        <span>首页</span>
+        <template #icon="props">
+          <i data-lucide="home" :style="{ color: props.active ? '#667eea' : '#999' }"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/grab" :badge="grabCount || ''">
+        <span>抢单</span>
+        <template #icon="props">
+          <i data-lucide="shopping-bag" :style="{ color: props.active ? '#667eea' : '#999' }"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/orders">
+        <span>订单</span>
+        <template #icon="props">
+          <i data-lucide="list" :style="{ color: props.active ? '#667eea' : '#999' }"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/user">
+        <span>我的</span>
+        <template #icon="props">
+          <i data-lucide="user" :style="{ color: props.active ? '#667eea' : '#999' }"></i>
+        </template>
+      </van-tabbar-item>
+    </van-tabbar>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const period = ref('month')
+const activeTab = ref(3)
+const grabCount = ref(0)
 
 const incomeData = {
   today: { income: 328, orders: 5 },
@@ -98,13 +128,26 @@ const serviceIcons = { 1: '🧹', 2: '🔧', 3: '👶', 4: '🛠️' }
 const getServiceIcon = (id) => serviceIcons[id] || '📋'
 
 const goBack = () => router.back()
+
+// 初始化图标
+const initIcons = () => {
+  nextTick(() => {
+    if (window.lucide) {
+      window.lucide.createIcons()
+    }
+  })
+}
+
+onMounted(() => {
+  initIcons()
+})
 </script>
 
 <style scoped>
 .income-page {
   min-height: 100vh;
   background: #f5f5f5;
-  padding-bottom: 20px;
+  padding-bottom: 70px;
 }
 
 .income-overview {

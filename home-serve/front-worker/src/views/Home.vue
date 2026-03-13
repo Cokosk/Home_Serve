@@ -158,26 +158,33 @@
       </van-pull-refresh>
     </div>
 
-    <!-- 底部导航 -->
-    <nav class="bottom-nav">
-      <a href="#/" class="nav-item active">
-        <i data-lucide="home"></i>
+    <!-- 底部导航 - 使用 Vant Tabbar -->
+    <van-tabbar v-model="activeTab" route active-color="#667eea">
+      <van-tabbar-item to="/">
         <span>首页</span>
-      </a>
-      <a href="#/grab" class="nav-item">
-        <i data-lucide="shopping-bag"></i>
+        <template #icon="props">
+          <i data-lucide="home" :style="{ color: props.active ? '#667eea' : '#999' }"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/grab" :badge="grabCount || ''">
         <span>抢单</span>
-        <span class="nav-badge" v-if="grabCount">{{ grabCount }}</span>
-      </a>
-      <a href="#/orders" class="nav-item">
-        <i data-lucide="list"></i>
+        <template #icon="props">
+          <i data-lucide="shopping-bag" :style="{ color: props.active ? '#667eea' : '#999' }"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/orders">
         <span>订单</span>
-      </a>
-      <a href="#/user" class="nav-item">
-        <i data-lucide="user"></i>
+        <template #icon="props">
+          <i data-lucide="list" :style="{ color: props.active ? '#667eea' : '#999' }"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/user">
         <span>我的</span>
-      </a>
-    </nav>
+        <template #icon="props">
+          <i data-lucide="user" :style="{ color: props.active ? '#667eea' : '#999' }"></i>
+        </template>
+      </van-tabbar-item>
+    </van-tabbar>
   </div>
 </template>
 
@@ -356,7 +363,7 @@ onMounted(() => {
 /* 统计卡片 */
 .stats-section {
   padding: 15px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, #1D4ED8 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .stat-card {
@@ -685,57 +692,6 @@ onMounted(() => {
   font-size: 18px;
   font-weight: 700;
   color: var(--color-error);
-}
-
-/* 底部导航 */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--color-bg-card);
-  border-top: 1px solid var(--color-border);
-  display: flex;
-  justify-content: space-around;
-  padding: var(--space-sm) 0;
-  z-index: 100;
-}
-
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  padding: var(--space-xs) var(--space-md);
-  color: var(--color-text-muted);
-  text-decoration: none;
-  font-size: 11px;
-  position: relative;
-}
-
-.nav-item svg {
-  width: 24px;
-  height: 24px;
-}
-
-.nav-item.active {
-  color: var(--color-primary);
-}
-
-.nav-badge {
-  position: absolute;
-  top: 0;
-  right: 8px;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 4px;
-  background: var(--color-error);
-  color: white;
-  font-size: 10px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* 动画 */

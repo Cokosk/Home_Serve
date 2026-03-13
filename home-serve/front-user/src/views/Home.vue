@@ -93,25 +93,33 @@
       </van-pull-refresh>
     </main>
 
-    <!-- 底部导航 -->
-    <nav class="bottom-nav">
-      <a href="#/" class="nav-item active">
-        <i class="ph ph-fill ph-house"></i>
+    <!-- 底部导航 - 使用 Vant Tabbar -->
+    <van-tabbar v-model="activeTab" route active-color="var(--color-primary)">
+      <van-tabbar-item to="/">
         <span>首页</span>
-      </a>
-      <a href="#/services" class="nav-item">
-        <i class="ph ph-list-bullets"></i>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-house' : 'ph ph-house'"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/services">
         <span>服务</span>
-      </a>
-      <a href="#/orders" class="nav-item">
-        <i class="ph ph-clipboard-text"></i>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-list-bullets' : 'ph ph-list-bullets'"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/orders">
         <span>订单</span>
-      </a>
-      <a href="#/user" class="nav-item">
-        <i class="ph ph-user"></i>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-clipboard-text' : 'ph ph-clipboard-text'"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/user">
         <span>我的</span>
-      </a>
-    </nav>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-user' : 'ph ph-user'"></i>
+        </template>
+      </van-tabbar-item>
+    </van-tabbar>
   </div>
 </template>
 
@@ -128,6 +136,7 @@ const categories = ref([])
 const hotServices = ref([])
 const refreshing = ref(false)
 const servicesLoading = ref(true)
+const activeTab = ref(0)
 
 // 显示的分类（最多5个）
 const displayCategories = computed(() => {
@@ -309,6 +318,7 @@ onMounted(() => {
 /* 主内容 */
 .main {
   padding: var(--space-md);
+  padding-bottom: 70px;
 }
 
 /* 分类导航 */
@@ -494,39 +504,5 @@ onMounted(() => {
 .service-sales {
   font-size: 10px;
   color: var(--color-text-light);
-}
-
-/* 底部导航 */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--color-bg-elevated);
-  border-top: 1px solid var(--color-border);
-  display: flex;
-  justify-content: space-around;
-  padding: var(--space-sm) 0;
-  z-index: 100;
-}
-
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  padding: var(--space-xs) var(--space-md);
-  color: var(--color-text-muted);
-  text-decoration: none;
-  font-size: 10px;
-  font-family: var(--font-body);
-}
-
-.nav-item i {
-  font-size: 24px;
-}
-
-.nav-item.active {
-  color: var(--color-primary);
 }
 </style>

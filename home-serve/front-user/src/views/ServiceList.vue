@@ -11,7 +11,7 @@
         @cancel="$router.back()"
       >
         <template #left-icon>
-          <van-icon name="search" color="var(--color-primary)" />
+          <i class="ph ph-magnifying-glass" style="color: var(--color-primary); font-size: 18px;"></i>
         </template>
       </van-search>
     </div>
@@ -43,7 +43,7 @@
           @click="sortType = 'sales'"
         >
           销量
-          <van-icon :name="sortType === 'sales' ? 'arrow-down' : 'arrow'" size="10" />
+          <i :class="sortType === 'sales' ? 'ph ph-caret-down' : 'ph ph-caret-right'" style="font-size: 10px;"></i>
         </div>
         <div 
           class="sort-item" 
@@ -51,7 +51,7 @@
           @click="togglePriceSort"
         >
           价格
-          <van-icon :name="priceOrder === 'asc' ? 'arrow-up' : 'arrow-down'" size="10" />
+          <i :class="priceOrder === 'asc' ? 'ph ph-caret-up' : 'ph ph-caret-down'" style="font-size: 10px;"></i>
         </div>
       </div>
     </div>
@@ -77,7 +77,7 @@
             @click="goToDetail(service.id)"
           >
             <div class="service-image">
-              <div class="service-icon">{{ getServiceIcon(service.categoryId) }}</div>
+              <i :class="getServiceIcon(service.categoryId)" class="service-icon-ph"></i>
               <div class="service-badge" v-if="service.badge">{{ service.badge }}</div>
             </div>
             <div class="service-info">
@@ -93,7 +93,7 @@
                   <span class="price-unit">/次</span>
                 </div>
                 <div class="service-sales">
-                  <van-icon name="fire-o" color="var(--color-primary)" />
+                  <i class="ph ph-fire" style="color: var(--color-primary);"></i>
                   已售{{ service.sales || 100 }}+
                 </div>
               </div>
@@ -115,11 +115,31 @@
     </div>
 
     <!-- 底部导航 -->
-    <van-tabbar v-model="activeTab" active-color="var(--color-primary)" inactive-color="#999">
-      <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
-      <van-tabbar-item icon="apps-o" to="/services">服务</van-tabbar-item>
-      <van-tabbar-item icon="orders-o" to="/orders">订单</van-tabbar-item>
-      <van-tabbar-item icon="user-o" to="/user">我的</van-tabbar-item>
+    <van-tabbar v-model="activeTab" route active-color="var(--color-primary)">
+      <van-tabbar-item to="/">
+        <span>首页</span>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-house' : 'ph ph-house'"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/services">
+        <span>服务</span>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-list-bullets' : 'ph ph-list-bullets'"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/orders">
+        <span>订单</span>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-clipboard-text' : 'ph ph-clipboard-text'"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/user">
+        <span>我的</span>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-user' : 'ph ph-user'"></i>
+        </template>
+      </van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -148,17 +168,20 @@ const sortType = ref('default')
 const priceOrder = ref('asc')
 const page = ref(1)
 
-// 分类图标映射
+// 分类图标映射 - 使用 Phosphor Icons
 const categoryIconMap = {
-  1: '🧹',
-  2: '🔧',
-  3: '👶',
-  4: '🛠️'
+  1: 'ph ph-sparkle',       // 保洁
+  2: 'ph ph-wrench',        // 维修
+  3: 'ph ph-baby',          // 育儿
+  4: 'ph ph-hammer',        // 安装
+  5: 'ph ph-package',       // 搬家
+  6: 'ph ph-bathtub',       // 清洗
+  default: 'ph ph-list-bullets'
 }
 
 // 获取服务图标
 const getServiceIcon = (categoryId) => {
-  return categoryIconMap[categoryId] || '📋'
+  return categoryIconMap[categoryId] || categoryIconMap.default
 }
 
 // 筛选和排序后的服务列表
@@ -342,8 +365,9 @@ onMounted(async () => {
   position: relative;
 }
 
-.service-icon {
+.service-icon-ph {
   font-size: 40px;
+  color: var(--color-primary);
 }
 
 .service-badge {

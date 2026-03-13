@@ -5,7 +5,7 @@
     <!-- 刷新按钮 -->
     <div class="refresh-btn">
       <van-button size="small" @click="loadOrders">
-        <van-icon name="replay" /> 刷新
+        <i data-lucide="refresh-cw" style="width:14px;height:14px;margin-right:4px;"></i> 刷新
       </van-button>
       <span class="count">可抢订单: {{ orders.length }}</span>
     </div>
@@ -20,8 +20,8 @@
             </template>
             <template #desc>
               <div class="order-info">
-                <p>预约时间: {{ order.appointmentTime }}</p>
-                <p>地址: {{ order.address }}</p>
+                <p><i data-lucide="clock" style="width:14px;height:14px;margin-right:4px;vertical-align:middle;"></i> 预约时间: {{ order.appointmentTime }}</p>
+                <p><i data-lucide="map-pin" style="width:14px;height:14px;margin-right:4px;vertical-align:middle;"></i> 地址: {{ order.address }}</p>
               </div>
             </template>
             <template #price>
@@ -39,18 +39,38 @@
       <van-empty v-if="!loading && orders.length === 0" description="暂无可抢订单" />
     </van-pull-refresh>
 
-    <!-- 底部导航 -->
-    <van-tabbar v-model="activeTab" route>
-      <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
-      <van-tabbar-item icon="shopping-cart-o" to="/grab">抢单</van-tabbar-item>
-      <van-tabbar-item icon="orders-o" to="/orders">订单</van-tabbar-item>
-      <van-tabbar-item icon="user-o" to="/user">我的</van-tabbar-item>
+    <!-- 底部导航 - 使用 Vant Tabbar -->
+    <van-tabbar v-model="activeTab" route active-color="#667eea">
+      <van-tabbar-item to="/">
+        <span>首页</span>
+        <template #icon="props">
+          <i data-lucide="home" :style="{ color: props.active ? '#667eea' : '#999' }"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/grab" :badge="orders.length || ''">
+        <span>抢单</span>
+        <template #icon="props">
+          <i data-lucide="shopping-bag" :style="{ color: props.active ? '#667eea' : '#999' }"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/orders">
+        <span>订单</span>
+        <template #icon="props">
+          <i data-lucide="list" :style="{ color: props.active ? '#667eea' : '#999' }"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/user">
+        <span>我的</span>
+        <template #icon="props">
+          <i data-lucide="user" :style="{ color: props.active ? '#667eea' : '#999' }"></i>
+        </template>
+      </van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import { orderApi } from '../api/order'
 import { showToast } from 'vant'
 
@@ -58,6 +78,15 @@ const activeTab = ref(1)
 const orders = ref([])
 const loading = ref(false)
 const refreshing = ref(false)
+
+// 初始化图标
+const initIcons = () => {
+  nextTick(() => {
+    if (window.lucide) {
+      window.lucide.createIcons()
+    }
+  })
+}
 
 const loadOrders = async () => {
   loading.value = true
@@ -68,6 +97,7 @@ const loadOrders = async () => {
     }
   } finally {
     loading.value = false
+    initIcons()
   }
 }
 
@@ -103,7 +133,7 @@ onMounted(() => {
 
 <style scoped>
 .grab-pool {
-  padding-bottom: 60px;
+  padding-bottom: 70px;
 }
 
 .refresh-btn {
@@ -138,6 +168,8 @@ onMounted(() => {
 
 .order-info p {
   margin: 5px 0;
+  display: flex;
+  align-items: center;
 }
 
 .price {

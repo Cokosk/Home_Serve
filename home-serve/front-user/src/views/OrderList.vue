@@ -27,7 +27,7 @@
             <div class="order-card">
               <div class="order-header">
                 <div class="order-service">
-                  <span class="service-icon">{{ getServiceIcon(order.serviceId) }}</span>
+                  <i :class="getServiceIcon(order.serviceId)" class="service-icon"></i>
                   <span class="service-name">{{ order.serviceName }}</span>
                 </div>
                 <span class="order-status" :class="'status-' + getStatusClass(order.status)">
@@ -37,7 +37,7 @@
               <div class="order-body">
                 <div class="info-row">
                   <div class="info-icon">
-                    <van-icon name="clock-o" />
+                    <i class="ph ph-clock"></i>
                   </div>
                   <div class="info-content">
                     <span class="info-label">预约时间</span>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="info-row">
                   <div class="info-icon">
-                    <van-icon name="location-o" />
+                    <i class="ph ph-map-pin"></i>
                   </div>
                   <div class="info-content">
                     <span class="info-label">服务地址</span>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="info-row" v-if="order.workerName">
                   <div class="info-icon">
-                    <van-icon name="user-o" />
+                    <i class="ph ph-user"></i>
                   </div>
                   <div class="info-content">
                     <span class="info-label">服务人员</span>
@@ -113,11 +113,32 @@
       </van-pull-refresh>
     </div>
 
+    <!-- 底部导航 - 使用 Phosphor Icons -->
     <van-tabbar v-model="activeTab" route active-color="var(--color-primary)">
-      <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
-      <van-tabbar-item icon="apps-o" to="/services">服务</van-tabbar-item>
-      <van-tabbar-item icon="orders-o" to="/orders">订单</van-tabbar-item>
-      <van-tabbar-item icon="user-o" to="/user">我的</van-tabbar-item>
+      <van-tabbar-item to="/">
+        <span>首页</span>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-house' : 'ph ph-house'"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/services">
+        <span>服务</span>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-list-bullets' : 'ph ph-list-bullets'"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/orders">
+        <span>订单</span>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-clipboard-text' : 'ph ph-clipboard-text'"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/user">
+        <span>我的</span>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-user' : 'ph ph-user'"></i>
+        </template>
+      </van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -141,16 +162,19 @@ const refreshing = ref(false)
 const finished = ref(false)
 const page = ref(1)
 
-// 服务图标映射
-const serviceIcons = {
-  1: '🧹',
-  2: '🔧',
-  3: '👶',
-  4: '🛠️'
+// 服务图标映射 - Phosphor Icons
+const serviceIconMap = {
+  1: 'ph ph-sparkle',
+  2: 'ph ph-wrench',
+  3: 'ph ph-baby',
+  4: 'ph ph-hammer',
+  5: 'ph ph-package',
+  6: 'ph ph-bathtub',
+  default: 'ph ph-list-bullets'
 }
 
 const getServiceIcon = (serviceId) => {
-  return serviceIcons[serviceId] || '📋'
+  return serviceIconMap[serviceId] || serviceIconMap.default
 }
 
 const getStatusClass = (status) => {
@@ -309,6 +333,7 @@ onMounted(() => {
 
 .service-icon {
   font-size: 20px;
+  color: var(--color-primary);
 }
 
 .service-name {
@@ -369,6 +394,10 @@ onMounted(() => {
   justify-content: center;
   color: var(--color-text-secondary);
   flex-shrink: 0;
+}
+
+.info-icon i {
+  font-size: 14px;
 }
 
 .info-content {

@@ -24,32 +24,32 @@
         <span class="section-title">我的订单</span>
         <span class="more" @click="goToOrders">
           全部订单
-          <van-icon name="arrow" />
+          <i class="ph ph-caret-right"></i>
         </span>
       </div>
       <div class="shortcuts-grid">
         <div class="shortcut-item" @click="goToOrders('pending')">
           <div class="shortcut-icon">
-            <van-icon name="clock-o" />
+            <i class="ph ph-clock"></i>
             <span class="badge" v-if="orderCounts.pending">{{ orderCounts.pending }}</span>
           </div>
           <span class="shortcut-text">待处理</span>
         </div>
         <div class="shortcut-item" @click="goToOrders('processing')">
           <div class="shortcut-icon">
-            <van-icon name="send-gift-o" />
+            <i class="ph ph-spinner"></i>
           </div>
           <span class="shortcut-text">进行中</span>
         </div>
         <div class="shortcut-item" @click="goToOrders('completed')">
           <div class="shortcut-icon">
-            <van-icon name="success" />
+            <i class="ph ph-check-circle"></i>
           </div>
           <span class="shortcut-text">已完成</span>
         </div>
         <div class="shortcut-item" @click="goToOrders('cancelled')">
           <div class="shortcut-icon">
-            <van-icon name="close" />
+            <i class="ph ph-x-circle"></i>
           </div>
           <span class="shortcut-text">已取消</span>
         </div>
@@ -62,14 +62,14 @@
         <van-cell title="我的地址" is-link @click="goToAddress">
           <template #icon>
             <div class="cell-icon location">
-              <van-icon name="location-o" />
+              <i class="ph ph-map-pin"></i>
             </div>
           </template>
         </van-cell>
         <van-cell title="我的优惠券" is-link @click="goToCoupons">
           <template #icon>
             <div class="cell-icon coupon">
-              <van-icon name="coupon-o" />
+              <i class="ph ph-ticket"></i>
             </div>
           </template>
           <template #value>
@@ -79,7 +79,7 @@
         <van-cell title="我的收藏" is-link @click="goToFavorite">
           <template #icon>
             <div class="cell-icon favorite">
-              <van-icon name="star-o" />
+              <i class="ph ph-heart"></i>
             </div>
           </template>
         </van-cell>
@@ -89,21 +89,21 @@
         <van-cell title="联系客服" is-link @click="contactService">
           <template #icon>
             <div class="cell-icon service">
-              <van-icon name="service-o" />
+              <i class="ph ph-headset"></i>
             </div>
           </template>
         </van-cell>
         <van-cell title="帮助中心" is-link @click="goToHelp">
           <template #icon>
             <div class="cell-icon help">
-              <van-icon name="question-o" />
+              <i class="ph ph-question"></i>
             </div>
           </template>
         </van-cell>
         <van-cell title="关于我们" is-link @click="goToAbout">
           <template #icon>
             <div class="cell-icon about">
-              <van-icon name="info-o" />
+              <i class="ph ph-info"></i>
             </div>
           </template>
         </van-cell>
@@ -113,18 +113,39 @@
         <van-cell title="退出登录" @click="handleLogout" title-style="color: #ff4d4f;">
           <template #icon>
             <div class="cell-icon logout">
-              <van-icon name="revoke" />
+              <i class="ph ph-sign-out"></i>
             </div>
           </template>
         </van-cell>
       </van-cell-group>
     </div>
 
+    <!-- 底部导航 - 使用 Phosphor Icons -->
     <van-tabbar v-model="activeTab" route active-color="var(--color-primary)">
-      <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
-      <van-tabbar-item icon="apps-o" to="/services">服务</van-tabbar-item>
-      <van-tabbar-item icon="orders-o" to="/orders">订单</van-tabbar-item>
-      <van-tabbar-item icon="user-o" to="/user">我的</van-tabbar-item>
+      <van-tabbar-item to="/">
+        <span>首页</span>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-house' : 'ph ph-house'"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/services">
+        <span>服务</span>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-list-bullets' : 'ph ph-list-bullets'"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/orders">
+        <span>订单</span>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-clipboard-text' : 'ph ph-clipboard-text'"></i>
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item to="/user">
+        <span>我的</span>
+        <template #icon="props">
+          <i :class="props.active ? 'ph ph-fill ph-user' : 'ph ph-user'"></i>
+        </template>
+      </van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -357,6 +378,10 @@ const handleLogout = async () => {
   position: relative;
 }
 
+.shortcut-icon i {
+  font-size: 20px;
+}
+
 .badge {
   position: absolute;
   top: -4px;
@@ -398,6 +423,10 @@ const handleLogout = async () => {
   justify-content: center;
   font-size: 16px;
   margin-right: 10px;
+}
+
+.cell-icon i {
+  font-size: 18px;
 }
 
 .cell-icon.location {
