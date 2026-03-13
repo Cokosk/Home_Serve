@@ -1,0 +1,22 @@
+========== DTD验证结果 ==========
+
+验证文件: bookstoreWithDtdVal.xml
+约束文件: bookstore.dtd
+
+验证状态: ✅ 通过
+
+详细说明:
+1. XML文档结构符合DTD约束
+2. bookstore元素包含至少一个book子元素 ✓
+3. 每个book元素包含: name, authors, price, core_curriculum, test(可选) ✓
+4. authors元素包含至少一个author子元素 ✓
+5. book元素的id属性已正确定义为必需属性 ✓
+6. 所有元素内容均为#PCDATA类型 ✓
+
+DTD约束定义:
+- bookstore: 根元素，包含一个或多个book子元素
+- book: 包含name, authors, price, core_curriculum, test(可选)
+- authors: 包含一个或多个author
+- book的id属性: CDATA类型，必需
+
+结论: XML文档完全符合DTD约束规范

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学校官网模拟</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 自定义样式 (放在Bootstrap之后) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <h1>XX学院</h1>
+        <p>XX学院欢迎您</p>
+    </header>
+
+    <!-- 导航栏 -->
+    <nav class="navbar-custom">
+        <ul>
+            <!-- 首页 - 无二级导航 -->
+            <li><a href="#">首页</a></li>
+            
+            <!-- 学院概况 - 包含二级导航 -->
+            <li>
+                <a href="#">学院概况</a>
+                <ul>
+                    <li><a href="#">学院简介</a></li>
+                    <li><a href="#">机构设置</a></li>
+                    <li><a href="#">领导介绍</a></li>
+                    <li><a href="#">校园风光</a></li>
+                </ul>
+            </li>
+            
+            <!-- 教学工作 - 包含二级导航 -->
+            <li>
+                <a href="#">教学工作</a>
+                <ul>
+                    <li><a href="#">专业设置</a></li>
+                    <li><a href="#">课程建设</a></li>
+                    <li><a href="#">师资队伍</a></li>
+                    <li><a href="#">教学成果</a></li>
+                </ul>
+            </li>
+            
+            <!-- 招生就业 - 无二级导航 -->
+            <li><a href="#">招生就业</a></li>
+            
+            <!-- 登录入口 -->
+            <li><a href="login.html">登录</a></li>
+        </ul>
+    </nav>
+
+    <!-- 轮播图 -->
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="image/scroll-1.jpg" class="d-block w-100" alt="第一张幻灯片">
+            </div>
+            <div class="carousel-item">
+                <img src="image/scroll-2.jpg" class="d-block w-100" alt="第二张幻灯片">
+            </div>
+            <div class="carousel-item">
+                <img src="image/scroll-3.jpg" class="d-block w-100" alt="第三张幻灯片">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- 主体内容 -->
+    <main>
+        <p>学院欢迎您的访问...</p>
+    </main>
+
+    <!-- 底部 -->
+    <footer>
+        <p>© 2025 XX学院 版权所有</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 自定义JS -->
+    <script src="script.js"></script>
+</body>
+</html>

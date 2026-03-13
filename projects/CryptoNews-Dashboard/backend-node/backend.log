@@ -1,0 +1,8 @@
+
+> cryptonews-dashboard-backend@1.0.0 start
+> node server.js
+
+🦞 CryptoNews Dashboard Backend running on port 8080
+📊 API: http://localhost:8080/api
+💰 Crypto: http://localhost:8080/api/crypto/heatmap
+📰 News: http://localhost:8080/api/news/list

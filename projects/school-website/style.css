@@ -1,0 +1,276 @@
+/* 学校官网模拟 - 样式文件 */
+
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Microsoft YaHei", Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 头部样式 */
+header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+header p {
+    font-size: 14px;
+    margin-top: 8px;
+    opacity: 0.9;
+}
+
+/* 导航栏样式 - 固定定位 */
+.navbar-custom {
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.navbar-custom ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.navbar-custom ul li {
+    position: relative;
+}
+
+.navbar-custom ul li a {
+    display: block;
+    padding: 15px 30px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-custom ul li a:hover {
+    background-color: #555;
+}
+
+/* 二级导航样式 */
+.navbar-custom ul li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    min-width: 150px;
+    flex-direction: column;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+}
+
+.navbar-custom ul li:hover ul {
+    display: flex;
+}
+
+.navbar-custom ul li ul li {
+    width: 100%;
+}
+
+.navbar-custom ul li ul li a {
+    padding: 12px 20px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-custom ul li ul li:last-child a {
+    border-bottom: none;
+}
+
+.navbar-custom ul li ul li a:hover {
+    background-color: #555;
+}
+
+/* 为固定导航栏添加占位空间 */
+header {
+    padding-top: 70px; /* 为固定导航栏留出空间 */
+}
+
+/* 修正：导航栏固定后，header应该正常显示 */
+header {
+    padding-top: 20px;
+}
+
+/* 添加body顶部内边距以适应固定导航栏 */
+body {
+    padding-top: 50px;
+}
+
+/* 主体内容样式 */
+main {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    min-height: 400px;
+}
+
+main p {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    font-size: 18px;
+    line-height: 1.8;
+    color: #555;
+}
+
+/* 底部样式 */
+footer {
+    background-color: #1e3a8a;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+footer p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* ========== 登录页面样式 ========== */
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.login-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-box h2 {
+    text-align: center;
+    color: #1e40af;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-footer a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+.login-box .logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-box .logo img {
+    width: 80px;
+    height: 80px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .navbar-custom ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .navbar-custom ul li ul {
+        position: static;
+        width: 100%;
+    }
+    
+    main {
+        padding: 0 15px;
+    }
+    
+    main p {
+        padding: 20px;
+        font-size: 16px;
+    }
+}

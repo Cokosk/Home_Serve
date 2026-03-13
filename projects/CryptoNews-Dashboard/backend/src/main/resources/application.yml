@@ -1,0 +1,70 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: crypto-news-dashboard
+  
+  datasource:
+    url: jdbc:mysql://host.docker.internal:13306/crypto_news?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8
+    username: root
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+  
+  data:
+    redis:
+      host: host.docker.internal
+      port: 6379
+      password: ${REDIS_PASSWORD:}
+      database: 0
+
+# 加密货币 API 配置
+crypto:
+  coingecko:
+    base-url: https://api.coingecko.com/api/v3
+    api-key: ${COINGECKO_API_KEY:}
+  binance:
+    base-url: https://api.binance.com/api/v3
+
+# 新闻源配置
+news:
+  sources:
+    - name: CoinDesk
+      type: RSS
+      url: https://www.coindesk.com/arc/outboundfeeds/rss/
+      enabled: true
+    - name: CoinTelegraph
+      type: RSS
+      url: https://cointelegraph.com/rss
+      enabled: true
+    - name: CryptoNews
+      type: RSS
+      url: https://cryptonews.com/news/feed/
+      enabled: true
+  refresh-interval: 300000  # 5分钟
+
+# AI 配置
+ai:
+  provider: qwen
+  openai:
+    api-key: ${OPENAI_API_KEY:}
+    model: gpt-4o-mini
+    base-url: https://api.openai.com/v1
+  qwen:
+    api-key: sk-sp-32fa7fe4d5664182aa668a67ddb7fb96
+    model: qwen-turbo
+
+# 日志配置
+logging:
+  level:
+    com.cryptonews: DEBUG
+    org.springframework.web: INFO

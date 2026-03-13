@@ -1,0 +1,30 @@
+========== Schema验证结果 ==========
+
+验证文件: bookstoreWithSchemaVal.xml
+约束文件: bookstore.xsd
+
+验证状态: ✅ 通过
+
+详细说明:
+1. 根元素bookstore符合Schema定义 ✓
+2. book元素可出现多次(maxOccurs="unbounded") ✓
+3. 元素顺序正确: name → authors → price → core_curriculum → test ✓
+4. name元素类型为xs:string ✓
+5. authors元素包含多个author子元素 ✓
+6. price元素类型为xs:decimal ✓
+   - 值"69.8"符合decimal类型 ✓
+   - 值"37.8"符合decimal类型 ✓
+7. core_curriculum元素类型为xs:string ✓
+8. test元素为可选(minOccurs="0") ✓
+   - 第一个book包含test元素 ✓
+   - 第二个book不包含test元素 ✓
+9. book元素的id属性为必需(use="required") ✓
+
+Schema约束定义:
+- 使用W3C XML Schema标准 (xmlns:xs="http://www.w3.org/2001/XMLSchema")
+- bookstore: 复杂类型，包含book序列
+- book: 复杂类型，包含元素序列和id属性
+- price: decimal类型，支持小数
+- test: 可选元素
+
+结论: XML文档完全符合Schema约束规范
